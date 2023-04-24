@@ -1,0 +1,46 @@
+<%- include('partials/header'); -%>
+
+<h1>Admin panel</h1>
+<form>
+    <h2>ADD YOUR SHOES</h2>
+    <label for="title">Title</label>
+    <input type="title" name="title" required>
+    <label for="brand">Brand</label>
+    <input type="brand" name="brand" required>
+    <label for="price">Price</label>
+    <input type="price" name="price" required>
+    <label for="model">Model</label>
+    <input type="model" name="model" required>
+    <button>Submit</button>
+</form>
+
+<!-- post request som tar verdiene til formen og sender det som en post request for å kunne authentisere bruker -->
+<script>
+
+const form = document.querySelector('form')
+    form.addEventListener('submit', async (e)=>{
+        e.preventDefault()
+
+        const title = form.title.value
+        const brand = form.brand.value
+        const price = form.price.value
+        const model = form.model.value
+
+
+        //sender data for authentisering
+        try {
+            const res = await fetch('/addShoe',{
+                method: 'post',
+                body: JSON.stringify({title,brand,price,model}),
+                headers: {'Content-Type': 'application/json'}
+            })
+
+            //venter på data
+            const data = await res.json()
+            console.log(data)
+        } catch (err) {
+            console.log(err)
+        }
+    })
+</script>
+<%- include('partials/footer'); -%>
