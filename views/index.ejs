@@ -1,7 +1,8 @@
 <%- include('partials/header'); -%>
 
-<div class="blogs content shoe-container">
+<div class="blogs content shoecontainer">
     <!-- for each loop som går gjennom alle bloggene som har blitt send som response og viser de på hjemmesiden -->
+    <div class="shoebox1">
     <% if (shoes.length > 0) { %>
         <% let tally = 0 %>
     <% shoes.forEach(shoes =>{ %> 
@@ -11,21 +12,30 @@
                 <a single href="/<%= shoes._id %> ">
                     <h3 class="title"><%= shoes.title %> </h3>
                     <p class="snippet"><%= shoes.brand %></p>
+                    <p class="snippet"><%= shoes.model %></p>
+                    <p class="snippet"><%= shoes.price %></p>
                 </a>
             <% }} %>
         <% }) %>
-    <% if(shoes.length>5){%>
-        <% let tally = 0%>
-        <% shoes.forEach(()=>{%>
-            <% if(tally <=5 ){%>
-                <% if(tally >5 && tally<=10){ %>
-                    <a single href="/<%= shoes._id %> ">
-                        <h3 class="title"><%= shoes.title %> </h3>
-                        <p class="snippet"><%= shoes.brand %></p>
-                    </a>
-            <% }} %>
-        <%})%>
-    <% } %>
+    </div>
+    
+    <div class="shoebox2">
+        <% if(shoes.length>5){%>
+            <% let tally = 0%>
+            <% shoes.forEach((shoes)=>{%>
+                <% tally++ %>
+                <% if(tally >5 ){%>
+                    <% if(tally >5 && tally<=10){ %>
+                        <a single href="/<%= shoes._id %> ">
+                            <h3 class="title"><%= shoes.title %> </h3>
+                             <p class="snippet"><%= shoes.brand %></p>
+                             <p class="snippet"><%= shoes.model %></p>
+                             <p class="snippet"><%= shoes.price %></p>
+                        </a>
+                <% }} %>
+            <%})%>
+        <% } %>
+        </div>
    <% } else{%>
     <!-- hvis det ikke er noen blogs viser man dette -->
     <p>there are no blogs to display</p>
