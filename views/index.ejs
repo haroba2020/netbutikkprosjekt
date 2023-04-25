@@ -9,12 +9,19 @@
         <% tally++ %>
         <% if(tally <=5 ){%>
             <% if(tally <= 5){ %>
-                <a single href="/<%= shoes._id %> ">
+                <div class="user">
+                <a>
                     <h3 class="title"><%= shoes.title %> </h3>
                     <p class="snippet"><%= shoes.brand %></p>
                     <p class="snippet"><%= shoes.model %></p>
                     <p class="snippet"><%= shoes.price %></p>
                 </a>
+                <% if(user){%>
+                    <% if(user.isAdmin==='true'){%>
+                        <button data-doc="<%= shoes._id %>">Remove</button>
+                    <% } %>
+                <% } %>
+                </div>
             <% }} %>
         <% }) %>
     </div>
@@ -26,12 +33,19 @@
                 <% tally++ %>
                 <% if(tally >5 ){%>
                     <% if(tally >5 && tally<=10){ %>
-                        <a single href="/<%= shoes._id %> ">
-                            <h3 class="title"><%= shoes.title %> </h3>
-                             <p class="snippet"><%= shoes.brand %></p>
-                             <p class="snippet"><%= shoes.model %></p>
-                             <p class="snippet"><%= shoes.price %></p>
-                        </a>
+                        <div class="user">
+                            <a>
+                                <h3 class="title"><%= shoes.title %> </h3>
+                                <p class="snippet"><%= shoes.brand %></p>
+                                <p class="snippet"><%= shoes.model %></p>
+                                <p class="snippet"><%= shoes.price %></p>
+                            </a>
+                            <% if(user){%>
+                                <% if(user.isAdmin==='true'){%>
+                                    <button data-doc="<%= shoes._id %>">Remove</button>
+                                <% } %>
+                            <%}%>
+                        </div>
                 <% }} %>
             <%})%>
         <% } %>
@@ -41,4 +55,38 @@
     <p>there are no blogs to display</p>
    <% } %>
 </div>
+<script>
+    if(document.querySelector('.blogs')){
+        const container = document.querySelector('.blogs')
+        console.log(container)
+        container.addEventListener('click',async(e)=>{
+            console.log(e.target.dataset.doc)
+            const id = e.target.dataset.doc
+            if(e.target.dataset.doc){
+                try {
+                endpoint = `/${e.target.dataset.doc}` 
+                fetch(endpoint, {
+                    method: 'DELETE',
+                })
+                .then(response => response.json())
+                .then(data => window.location.href = data.redirect)
+                .catch(err => console.log(err));
+                //venter på data
+                const data = await res.json()
+                console.log(data)
+    
+                //hvis finner user så redirect
+                if(data) {
+                    location.assign('/superAdmin')
+                }
+                } catch (err) {
+                    console.log(err)
+                }  
+            }
+            
+        })
+    
+    }
+    </script>
 <%- include('partials/footer'); -%>
+

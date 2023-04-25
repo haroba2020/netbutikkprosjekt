@@ -11,10 +11,13 @@
     <nav>
         <h1><a href="/">KicksHub</a></h1>
         <ul>
-         
             <% if(user){ %>
                 <% if(user.email === 'petter.shoes@kickshub.io'){ %>
+                    <li> <a href="/superAdmin"> Super Admin</a></li>
+                <% } %>   
+                <% if(user.isAdmin === 'true'){ %>
                     <li> <a href="/admin"> Admin</a></li>
+                    <li> <a href="adminHelp">AdminHelp</a></li>
                 <% } %>   
                 <li> Welcome <%= user.name %> </li>
                 <li> <a href="/logout"> Logout</a></li>

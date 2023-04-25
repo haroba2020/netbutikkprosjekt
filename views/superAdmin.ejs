@@ -1,0 +1,76 @@
+<%- include('partials/header'); -%>
+
+<% if(user){ %>
+    <% if(user.email === 'petter.shoes@kickshub.io'){ %>
+        <h1>Admin panel</h1>
+        <h2>KILL YOUR EMPLOYEES</h2>
+        <div class="blogs content shoecontainer">
+            <!-- for each loop som går gjennom alle bloggene som har blitt send som response og viser de på hjemmesiden -->
+            <div class="shoebox1">
+            <% users.forEach(user =>{ %> 
+                <div class="user">
+                    <a>
+                        <h3 class="title"><%= user.name %> </h3>
+                        <p class="snippet"><%= user.email %></p>
+                    </a>
+                    <button data-doc="<%= user._id %>">Make Admin</button>
+                </div>
+                <% }) %> 
+            </div>
+
+            <div class="shoebox2">
+            <% admins.forEach(admin =>{ %> 
+                <div class="user">
+                    <a>
+                        <h3 class="title"><%= admin.name %> </h3>
+                        <p class="snippet"><%= admin.email %></p>
+                    </a>
+                    <button data-doc="<%= admin._id %>">Remove admin</button>
+                </div>
+                <% }) %> 
+            </div>
+        </div>        
+    <% }else{ %>
+        <h1>Her har du ikke tilgang!!!</h1>
+        <img src="/stop.png" alt="Stop mf"> 
+    <% } %>  
+<% }else{%>
+    <h1>Her har du ikke tilgang!!!</h1>
+    <img src="/stop.png" alt="Stop mf">
+<% } %> 
+
+
+<!-- post request som tar verdiene til formen og sender det som en post request for å kunne authentisere bruker -->
+<script>
+if(document.querySelector('.blogs')){
+    const container = document.querySelector('.blogs')
+    console.log(container)
+    container.addEventListener('click',async(e)=>{
+        console.log(e.target.dataset.doc)
+        const id = e.target.dataset.doc
+        if(e.target.dataset.doc){
+            try {
+            const res = await fetch('/roleSwitch',{
+                method: 'post',
+                body: JSON.stringify({id}),
+                headers: {'Content-Type': 'application/json'}
+            })
+            //venter på data
+            const data = await res.json()
+            console.log(data)
+
+            //hvis finner user så redirect
+            if(data) {
+                location.assign('/superAdmin')
+            }
+            } catch (err) {
+                console.log(err)
+            }  
+        }
+        
+    })
+
+}
+
+</script>
+<%- include('partials/footer'); -%>

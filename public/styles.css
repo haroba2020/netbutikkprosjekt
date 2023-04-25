@@ -113,6 +113,17 @@ nav li a{
 .blogs a:hover h3{
   color: crimson;
 }
+.blogs button{
+  text-align: center;
+  justify-content: center;
+  display: inline;
+  margin-top: 0px;
+}
+.user a{
+  display: block;
+  margin: 10px 0;
+  padding-left: 30px;
+}
 
 /* details styles */
 .details{

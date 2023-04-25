@@ -10,8 +10,27 @@ module.exports.signup_get = (req,res)=>{
 module.exports.login_get = (req,res)=>{
     res.render('login');
 }
+module.exports.superAdmin = (req,res)=>{
+    let users;
+    User.find({isAdmin:'false'}).sort({ createdAt: -1})
+    .then((result)=>{
+        users = result;
+        console.log(users)
+
+        User.find({isAdmin:'true'}).sort({ createdAt: -1})
+        .then((result)=>{
+            res.render('superAdmin', {users, admins:result})
+        })
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+}
 module.exports.admin = (req,res)=>{
     res.render('admin');
+}
+module.exports.adminHelp = (req,res)=>{
+    res.render('adminHelp');
 }
 module.exports.addShoe = async (req,res)=>{
     const {title, brand, price, model} = req.body
@@ -24,7 +43,8 @@ module.exports.addShoe = async (req,res)=>{
 
 module.exports.addUser = async (req,res)=>{
     const {name, password, email} = req.body
-    const user = await User.create({name, password, email})
+    const isAdmin = false
+    const user = await User.create({name, password, email,isAdmin})
     const token = createToken(user._id)
     res.cookie('jwt',token, {maxAge: maxAge * 1000})
     res.status(201).json({user})
@@ -54,4 +74,26 @@ module.exports.login_post = async (req,res)=>{
 module.exports.logout = async (req,res) =>{
     res.cookie('jwt', '',{maxAge: 1 })
     res.redirect('/')
+}
+module.exports.roleSwitch = async (req,res) =>{
+    const {id} = req.body
+    const user = await User.findById(id)
+    if(user.isAdmin === 'false'){
+        const updatedUser = await User.findByIdAndUpdate(id, {isAdmin: 'true'}, {new: true});
+        res.status(200).json({updatedUser})
+    }else{
+        const updatedUser = await User.findByIdAndUpdate(id, {isAdmin: 'false'}, {new: true});
+        res.status(200).json({updatedUser})
+    }
+}
+module.exports.kicks_delete = (req, res) =>{
+    const id = req.params.id
+
+    Shoe.findByIdAndDelete(id)
+    .then(result=>{
+        res.json({ redirect: '/' });
+    })
+    .catch(err=>{
+        console.log(err)
+    })
 }
