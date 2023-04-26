@@ -6,9 +6,14 @@ const jwt = require('jsonwebtoken')
 module.exports.signup_get = (req,res)=>{
     res.render('signup');
 }
-
 module.exports.login_get = (req,res)=>{
     res.render('login');
+}
+module.exports.functionHelp = (req,res)=>{
+    res.render('functionHelp');
+}
+module.exports.linuxSetup = (req,res)=>{
+    res.render('linuxSetup');
 }
 module.exports.superAdmin = (req,res)=>{
     let users;
@@ -31,6 +36,17 @@ module.exports.admin = (req,res)=>{
 }
 module.exports.adminHelp = (req,res)=>{
     res.render('adminHelp');
+}
+// get request som ser etter /blog id ved bruk av req.params.id derreter så finner den en spesifik blog ved bruk av id og sender den tilbake til siden
+module.exports.kicks_edit = (req,res) => {
+    const id = req.params.id
+    Shoe.findById(id)
+    .then(result =>{
+        res.render('shoeEdit', {Shoe: result})
+    })
+    .catch(err =>{
+        res.status(404).render('404')
+    });
 }
 module.exports.addShoe = async (req,res)=>{
     const {title, brand, price, model} = req.body
@@ -85,6 +101,13 @@ module.exports.roleSwitch = async (req,res) =>{
         const updatedUser = await User.findByIdAndUpdate(id, {isAdmin: 'false'}, {new: true});
         res.status(200).json({updatedUser})
     }
+}
+module.exports.editShoes = async (req,res) =>{
+    const {title,brand,price,model,articleNumber,createdAt,id} = req.body
+    console.log('post is working')
+    const updatedShoe = await Shoe.findByIdAndUpdate(id, {title,brand,price,model,articleNumber,createdAt}, {new: true});
+    res.status(200).json({updatedShoe})
+
 }
 module.exports.kicks_delete = (req, res) =>{
     const id = req.params.id

@@ -19,6 +19,7 @@
                 <% if(user){%>
                     <% if(user.isAdmin==='true'){%>
                         <button data-doc="<%= shoes._id %>">Remove</button>
+                        <button data-doc="<%= shoes._id %>">Edit</button>
                     <% } %>
                 <% } %>
                 </div>
@@ -43,6 +44,7 @@
                             <% if(user){%>
                                 <% if(user.isAdmin==='true'){%>
                                     <button data-doc="<%= shoes._id %>">Remove</button>
+                                    <button data-doc="<%= shoes._id %>"> EDIT </button>
                                 <% } %>
                             <%}%>
                         </div>
@@ -63,29 +65,31 @@
             console.log(e.target.dataset.doc)
             const id = e.target.dataset.doc
             if(e.target.dataset.doc){
-                try {
-                endpoint = `/${e.target.dataset.doc}` 
-                fetch(endpoint, {
-                    method: 'DELETE',
-                })
-                .then(response => response.json())
-                .then(data => window.location.href = data.redirect)
-                .catch(err => console.log(err));
-                //venter på data
-                const data = await res.json()
-                console.log(data)
-    
-                //hvis finner user så redirect
-                if(data) {
-                    location.assign('/superAdmin')
+                if(e.target === 'REMOVE'){
+                    try {
+                    endpoint = `/${e.target.dataset.doc}` 
+                    fetch(endpoint, {
+                        method: 'DELETE',
+                    })
+                    .then(response => response.json())
+                    .then(data => window.location.href = data.redirect)
+                    .catch(err => console.log(err));
+                    //venter på data
+                    const data = await res.json()
+                    console.log(data)
+        
+                    //hvis finner user så redirect
+                    if(data) {
+                        location.assign('/')
+                    }
+                    } catch (err) {
+                        console.log(err)
+                    } 
+                }else{
+                    location.assign(`/${e.target.dataset.doc}` )
                 }
-                } catch (err) {
-                    console.log(err)
-                }  
             }
-            
         })
-    
     }
     </script>
 <%- include('partials/footer'); -%>

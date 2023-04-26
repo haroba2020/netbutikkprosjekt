@@ -1,0 +1,34 @@
+<%- include('partials/header'); -%>
+<h1>Delete edit guide for admins!!</h1>
+<br>
+<br>
+
+<h2> Finn remove og edit knappene som vises opp når du er logget inn som Admin</h2>
+<img src="/functions/1.png" alt="">
+<h2> Begge knappene har id'en til skoen sin, denne veriden skal vi hente snart. </h2>
+<img src="/functions/2.png" alt="">
+<h2> Først sjekkes det hvis delete knappen ble trykekt på</h2>
+<img src="/functions/3.png" alt="">
+<h2> Hvis den ble det så sender den en delete request med id'en som endpoint </h2>
+<img src="/functions/4.png" alt="">
+<h2> Den blir derrettes sjekket i router </h2>
+<img src="/functions/5.png" alt="">
+<h2> Det blir da skjørt en findByIdAndDelete funksjon som sletter skoen </h2>
+<img src="/functions/6.png" alt="">
+<h2> Hvis det er den andre knappen som blir klikket på så redirectes man til ip'en </h2>
+<img src="/functions/7.png" alt="">
+<h2> Router har en catch all nederst som tar opp ip'en </h2>
+<img src="/functions/8.png" alt="">
+<h2> Hvis Shoe.findById finner en skoe så sender man sko dataen til shoeEdit siden </h2>
+<p>Hvis den ikke finner en sko bli man redirected til 404 siden da har man ikke skrevet inn en ip</p>
+<img src="/functions/9.png" alt="">
+<h2> Nå er vi i Edit siden, har er alle dataene fra før av, Du kan nå endre dataene som du vill. </h2>
+<img src="/functions/10.png" alt="">
+<h2> Når du klikker på submit så tar scripte den nye dataen og sender en post request til editShoes </h2>
+<img src="/functions/11.png" alt="">
+<h2> I post requesten henter den dataen vi har gitt, Først så sjekker den ip'en til skoen, og så bruker den den nye dataen til å modifisere skoen </h2>
+<img src="/functions/12.png" alt="">
+<br>
+<h1>Det er sån du sletter og redigere sko på KicksHub!!</h1>
+
+<%- include('partials/footer'); -%>

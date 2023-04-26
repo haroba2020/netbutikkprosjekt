@@ -1,40 +1,7 @@
 <%- include('partials/header'); -%>
-<h1> Set up linux user and node server in ubuntu!</h1>
+<h1> Select you userguide!</h1>
 <br>
-<h2>* legg til en ny bruker med (sudo adduser username)</h2>
-<img src="/IMG/b1.png" alt="1">
-<h2>* Fyll inn krevende informasjon</h2>
-<p>Du kan skippe alt for å bruke default settings</p>
-<img src="/IMG/b2.png" alt="2">
-<h2>* gå inn på den nye bruker mappen med, (cd testbruker), deretter så lager du en .ssh mappe med (mkdir .ssh) og gå inn i den </h2>
-<img src="/IMG/b3.png" alt="3">
-<h2>*lag en ny fil (authorized_keys) og gå inn i den (nano authorized_keys)</h2>
-<img src="/IMG/b4.png" alt="4">
-<h2>*Finn din public SSH key, og legg den inn i filen. Deretter lagrer du filen med (CTRL+O) og gå ut av den med (CTRL+X)</h2>
-<img src="/IMG/b5.png" alt="5">
-<h2>*For å gi noen sudo-rettigheter, må du være logget på en eksisterende sudo bruker, og skrive inn følgende kommando (usermod -aG sudo brukernavn)</h2>
-<img src="/IMG/b6.png" alt="6">
-<h2>*For å hoste en node-applikasjon, må du navigere til (/var), lage en (www) mappe og naviger videre til www mappen (bruk cd og mkdir som i bildet)</h2>
-<img src="/IMG/b7.png" alt="7">
-<h2>*Nå som du er i (www) mappen, få tak i prosjektet ditt, med f.eks (git clone dittrepository)</h2>
-<img src="/IMG/b8.png" alt="8">
-<h2>*Naviger inn i prosjektet ditt, og installer node med (apt install nodejs)</h2>
-<img src="/IMG/b9.png" alt="9">
-<h2>*Deretter, installer npm også, med (apt install npm)</h2>
-<img src="/IMG/b10.png" alt="10">
-<h2>*Nå som du npm og node, kan du laste ned node_modules mappen din med (npm i)</h2>
-<img src="/IMG/b11.png" alt="11">
-<h2>*Etter at du har installert node_modules, så kan du kjøre serveren med (node serverFilNavn)</h2>
-<img src="/IMG/b12.png" alt="12">
-<h2>Da kan du endelig besøke nettsiden din med bruk av IP eller domain navn.</h2>
-<br>
-<h1>Ip plan</h1>
-<img src="/Planlegging/IPPlan.png" alt="IPplan">
-<h1>Netverksløsning</h1>
-<img src="/Planlegging/netverksløsning.png" alt="Netverksløsning">
+<a href="/functionHelp">How to delete and edit shoes for admins!</a><br>
+<a href="/linuxSetup">How to set up linux for admins!</a>
 
-<footer>
-    <!-- Copyright &copy; Haroba copyright 2022 -->
-</footer>
-</body>
-</html>
+<%- include('partials/footer'); -%>

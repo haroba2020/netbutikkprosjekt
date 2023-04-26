@@ -1,0 +1,63 @@
+<%- include('partials/header'); -%>
+<h1> EDIT <%= Shoe.title  %>!</h1>
+<h2> by <%= Shoe.brand  %></h2>
+<br>
+<% if(user){ %>
+    <% if(user.isAdmin === 'true'){ %>
+        <form>
+            <h2 class="h2Data" data-doc="<%= Shoe._id %>"></h2>>EDIT YOUR SHOES</h2>
+            <label for="title">Title</label>
+            <input type="title" name="title" value="<%=Shoe.title%>" required>
+            <label for="brand">Brand</label>
+            <input type="brand" name="brand" value="<%=Shoe.brand%>" required>
+            <label for="price">Price</label>
+            <input type="price" name="price" value="<%=Shoe.price%>" required>
+            <label for="model">Model</label>
+            <input type="model" name="model" value="<%=Shoe.model%>" required>
+            <label for="articleNumber">article Number</label>
+            <input type="articleNumber" name="articleNumber" value="<%=Shoe.articleNumber%>" required>
+            <label for="createdAt">created At</label>
+            <input type="createdAt" name="createdAt" value="<%=Shoe.createdAt%>" required>
+
+            <button>Submit</button>
+        </form>
+    <% }else{ %>
+        <h1>Her har du ikke tilgang!!!</h1>
+        <img src="/stop.png" alt="Stop mf">
+    <% } %>   
+<% }else{%>
+    <h1>Her har du ikke tilgang!!!</h1>
+    <img src="/stop.png" alt="Stop mf">
+<% } %> 
+<script>
+    if(document.querySelector('form')){
+        const form = document.querySelector('form')
+        form.addEventListener('submit', async (e)=>{
+            e.preventDefault()
+            console.log('event listener working')
+            const id = document.querySelector('.h2Data').dataset.doc
+            const title = form.title.value
+            const brand = form.brand.value
+            const price = form.price.value
+            const model = form.model.value
+            const articleNumber = form.articleNumber.value
+            const createdAt = form.createdAt.value
+
+            //sender data for authentisering
+            try {
+                const res = await fetch('/editShoes',{
+                    method: 'post',
+                    body: JSON.stringify({title,brand,price,model,articleNumber,createdAt,id}),
+                    headers: {'Content-Type': 'application/json'}
+                })
+    
+                //venter på data
+                const data = await res.json()
+                location.assign(`/` )
+            } catch (err) {
+                console.log(err)
+            }
+        })
+    }
+</script>
+<%- include('partials/footer'); -%>

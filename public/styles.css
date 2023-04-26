@@ -170,7 +170,6 @@ textarea{
   font-size: 1.2em;
   cursor: pointer;
 }
-
 .shoecontainer{
   display: flex;
   flex-direction: row;
@@ -188,4 +187,8 @@ textarea{
 }
 .title, .snippet {
   margin: 0;
+}
+.a-button{
+  margin: 0px;
+  padding: 0px;
 }
